@@ -51,4 +51,13 @@ export class CreateAccountPage extends BasePage {
         await expect(this.passwordError).toHaveText("This is a required field.");
         await expect(this.passwordConfirmError).toHaveText("This is a required field.");
     }
+
+    async expectErrorsForMinSymbols() {
+        await expect(this.firstNameError).toHaveText("This is a required field.");
+        await expect(this.lastNameError).toHaveText("This is a required field.");
+        await expect(this.emailError).toContainText("Please enter a valid email address");
+        await expect(this.passwordError).toContainText(
+            "Minimum length of this field must be equal or greater than 8 symbols",
+        );
+    }
 }
