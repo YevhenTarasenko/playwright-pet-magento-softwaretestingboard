@@ -17,7 +17,7 @@ export class CreateAccountPage extends BasePage {
     private readonly passwordError = this.page.locator("#password-error");
     private readonly passwordConfirmError = this.page.locator("#password-confirmation-error");
 
-    async openCreateAccountPagePage() {
+    async openCreateAccountPage() {
         await this.page.goto("/customer/account/create/");
         await expect(this.pageTitle).toHaveText("Create New Customer Account");
     }

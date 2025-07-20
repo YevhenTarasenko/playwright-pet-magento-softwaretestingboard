@@ -3,7 +3,7 @@ import { GenerateData } from "../../helpers/GenerateData";
 
 test.describe("Create Account", () => {
     test.beforeEach(async ({ app }) => {
-        await app.CreateAccountPage.openCreateAccountPagePage();
+        await app.CreateAccountPage.openCreateAccountPage();
     });
 
     test("Create a new account", async ({ app }) => {
