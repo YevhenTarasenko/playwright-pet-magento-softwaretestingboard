@@ -1,9 +1,15 @@
-import { type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 export abstract class BasePage {
-    page: Page;
+    protected readonly page: Page;
 
     constructor(page: Page) {
         this.page = page;
+    }
+
+    async expectPageTitle(title: string) {
+        const pageTitle = this.page.locator("[data-ui-id='page-title-wrapper']");
+
+        await expect(pageTitle).toHaveText(title);
     }
 }
