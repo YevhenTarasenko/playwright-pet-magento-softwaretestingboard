@@ -31,21 +31,27 @@ export class ProductCardComponent extends BasePage {
     private async selectSize(product: Locator, size: string) {
         const sizeOption = product.locator(`.size [option-label="${size}"]`);
 
-        if (await sizeOption.isVisible()) {
-            await sizeOption.click();
-        } else {
+        if (!(await sizeOption.isVisible())) {
             throw new Error(`Size "${size}" not found`);
         }
+
+        await sizeOption.hover({ force: true });
+        await sizeOption.click({ force: true });
+
+        await expect(sizeOption).toHaveClass(/selected/, { timeout: 5000 });
     }
 
     private async selectColor(product: Locator, color: string) {
         const colorOption = product.locator(`.color [option-label="${color}"]`);
 
-        if (await colorOption.isVisible()) {
-            await colorOption.click();
-        } else {
+        if (!(await colorOption.isVisible())) {
             throw new Error(`Color "${color}" not found`);
         }
+
+        await colorOption.hover({ force: true });
+        await colorOption.click({ force: true });
+
+        await expect(colorOption).toHaveClass(/selected/, { timeout: 5000 });
     }
 
     private async addToCart(product: Locator) {

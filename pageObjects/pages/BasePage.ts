@@ -12,4 +12,9 @@ export abstract class BasePage {
 
         await expect(pageTitle).toHaveText(title);
     }
+
+    async scrollByPixels(pixels: number) {
+        await this.page.mouse.wheel(0, pixels);
+        await this.page.waitForTimeout(250);
+    }
 }
