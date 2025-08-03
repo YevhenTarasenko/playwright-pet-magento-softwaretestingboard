@@ -3,6 +3,7 @@ import { test } from "../../fixtures/fixturePageAccess";
 test.describe("Home page tests", () => {
     test.beforeEach(async ({ app }) => {
         await app.homePage.openHomePage();
+        await app.homePage.removeADS();
         await app.homePage.expectPageTitle("Home Page");
     });
 

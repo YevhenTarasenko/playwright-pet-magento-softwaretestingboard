@@ -23,7 +23,7 @@ export class HomePage extends BasePage {
         await expect(this.heroImage).toBeEnabled();
 
         await this.heroImage.hover({ force: true });
-        await this.heroImage.click({ force: true });
+        await this.heroImage.dblclick({ force: true });
     }
 
     async clickToNewLumaYogaCollectionLink() {
@@ -31,7 +31,7 @@ export class HomePage extends BasePage {
         await expect(this.newLumaYogaCollectionLink).toBeEnabled();
 
         await this.newLumaYogaCollectionLink.hover({ force: true });
-        await this.newLumaYogaCollectionLink.click({ force: true });
+        await this.newLumaYogaCollectionLink.dblclick({ force: true });
     }
 
     async expectHotSellersBlock() {
