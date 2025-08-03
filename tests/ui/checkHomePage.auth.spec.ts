@@ -1,4 +1,5 @@
 import { test } from "../../fixtures/fixturePageAccess";
+import { radiantTeeVariants } from "../../helpers/productVariants";
 
 test.describe("Home page tests", () => {
     test.beforeEach(async ({ app }) => {
@@ -25,12 +26,27 @@ test.describe("Home page tests", () => {
 
     test("Add product with size and color to the cart", async ({ app }) => {
         await app.productCardComponent.addProductToCartByTitle("Radiant Tee", "M", "Purple");
-        await app.productCardComponent.expectSuccessMsgAfterAddingTheProduct();
+        await app.productCardComponent.expectSuccessMsgAfterAddingTheProductToCart();
+    });
+
+    test("Add all variants of Radiant Tee to the cart", async ({ app }) => {
+        await app.productCardComponent.addMultipleProductVariantsToCart("Radiant Tee", radiantTeeVariants);
     });
 
     test.fixme("Add product without size and color", async ({ app }) => {
         // KNOWN ISSUE: The "Fusion Backpack" product is not added to Card on the "Home" page after clicking "Add to Card" button
         await app.productCardComponent.addProductToCartByTitle("Fusion Backpack");
-        await app.productCardComponent.expectSuccessMsgAfterAddingTheProduct();
+        await app.productCardComponent.expectSuccessMsgAfterAddingTheProductToCart();
+    });
+
+    test("Add product to Wish List", async ({ app }) => {
+        await app.productCardComponent.addProductToWishList("Radiant Tee");
+        await app.homePage.expectPageTitle("My Wish List");
+        await app.productCardComponent.expectSuccessMsgAfterAddingTheProductToWishList("Radiant Tee");
+    });
+
+    test("Add product to Compare", async ({ app }) => {
+        await app.productCardComponent.addProductToCompareList("Radiant Tee");
+        await app.productCardComponent.expectSuccessMsgAfterAddingTheProductToCompare("Radiant Tee");
     });
 });

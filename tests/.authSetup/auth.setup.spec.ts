@@ -8,10 +8,10 @@ setup("Sing in as user", async ({ app }) => {
         throw new Error("Email or Password is missing");
     }
 
-    await app.SignInPage.openSignInPage();
-    await app.SignInPage.fillSignInForm(email, password);
-    await app.SignInPage.clickSignInBtn();
-    await app.SignInPage.expectUserIsSignedIn();
+    await app.signInPage.openSignInPage();
+    await app.signInPage.fillSignInForm(email, password);
+    await app.signInPage.clickSignInBtn();
+    await app.signInPage.expectUserIsSignedIn();
 
-    await app.SignInPage.page.context().storageState({ path: "tests/.authSetup/user.json" });
+    await app.signInPage.setStorageState();
 });

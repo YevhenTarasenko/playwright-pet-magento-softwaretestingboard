@@ -41,6 +41,7 @@ export default defineConfig({
             name: "auth user",
             testMatch: "**/*auth.spec.ts",
             use: { ...devices["Desktop Chrome"], storageState: "tests/.authSetup/user.json" },
+            dependencies: ["auth setup"],
         },
     ],
 });

@@ -1,5 +1,6 @@
 import { Locator, expect } from "@playwright/test";
 import { BasePage } from "../BasePage";
+import { ProductVariants } from "../../../helpers/Interfaces/productVariantsInterface";
 
 export class ProductCardComponent extends BasePage {
     private readonly productTitles = this.page.locator(".product-item-info .product-item-link");
@@ -67,6 +68,7 @@ export class ProductCardComponent extends BasePage {
     }
 
     async addProductToCartByTitle(title: string, size?: string, color?: string) {
+        await this.page.waitForLoadState("load");
         const product = await this.selectProductByTitle(title);
 
         if (size) {
@@ -79,8 +81,65 @@ export class ProductCardComponent extends BasePage {
         await this.addToCart(product);
     }
 
-    async expectSuccessMsgAfterAddingTheProduct() {
+    async addMultipleProductVariantsToCart(productTitle: string, productVariants: ProductVariants[]) {
+        {
+            for (const { size, color } of productVariants) {
+                await this.addProductToCartByTitle(productTitle, size, color);
+                await this.expectSuccessMsgAfterAddingTheProductToCart();
+            }
+        }
+    }
+
+    async expectSuccessMsgAfterAddingTheProductToCart() {
         await expect(this.successMsg).toBeVisible();
         await expect(this.successMsg).toContainText("You added Radiant Tee to your shopping cart");
+    }
+
+    async expectSuccessMsgAfterAddingTheProductToWishList(productTitle: string) {
+        await expect(this.successMsg).toBeVisible();
+        await expect(this.successMsg).toContainText(
+            `${productTitle} has been added to your Wish List. Click here to continue shopping.`,
+        );
+    }
+
+    async expectSuccessMsgAfterAddingTheProductToCompare(productTitle: string) {
+        await expect(this.successMsg).toBeVisible();
+        await expect(this.successMsg).toContainText(`You added product ${productTitle} to the comparison list.`);
+    }
+
+    private async addToWishList(product: Locator) {
+        await product.hover();
+        const addToWishList = product.getByRole("link", { name: "Add to Wish List" });
+        await addToWishList.waitFor({ state: "visible" });
+
+        if (await addToWishList.isVisible()) {
+            await addToWishList.click();
+        } else {
+            throw new Error(`Add to Wish List button not found`);
+        }
+    }
+
+    async addProductToWishList(title: string) {
+        const product = await this.selectProductByTitle(title);
+
+        await this.addToWishList(product);
+    }
+
+    private async addToCompare(product: Locator) {
+        await product.hover();
+        const addToCompare = product.getByRole("link", { name: "Add to Compare" });
+        await addToCompare.waitFor({ state: "visible" });
+
+        if (await addToCompare.isVisible()) {
+            await addToCompare.click();
+        } else {
+            throw new Error(`Add to Compare button not found`);
+        }
+    }
+
+    async addProductToCompareList(title: string) {
+        const product = await this.selectProductByTitle(title);
+
+        await this.addToCompare(product);
     }
 }

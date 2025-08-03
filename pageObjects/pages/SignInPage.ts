@@ -19,10 +19,15 @@ export class SignInPage extends BasePage {
     }
 
     async clickSignInBtn() {
-        await this.signInBtn.click();
+        await this.signInBtn.hover();
+        await this.signInBtn.click({ force: true });
     }
 
     async expectUserIsSignedIn() {
         await expect(this.signInPageTitle).toHaveText("My Account");
+    }
+
+    async setStorageState() {
+        await this.page.context().storageState({ path: "tests/.authSetup/user.json" });
     }
 }
