@@ -91,6 +91,7 @@ export class ProductCardComponent extends BasePage {
     }
 
     async expectSuccessMsgAfterAddingTheProductToCart() {
+        await this.page.waitForLoadState("load");
         await expect(this.successMsg).toBeVisible();
         await expect(this.successMsg).toContainText("You added Radiant Tee to your shopping cart");
     }

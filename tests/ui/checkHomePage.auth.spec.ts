@@ -6,6 +6,7 @@ test.describe("Home page tests", () => {
         await app.homePage.openHomePage();
         await app.homePage.removeADS();
         await app.homePage.expectPageTitle("Home Page");
+        await app.cartHelper.clearCart();
     });
 
     test("Redirect to 'New Luma Yoga Collection' page by clicking the link", async ({ app }) => {

@@ -30,7 +30,6 @@ export abstract class BasePage {
                 ".adsbygoogle",
                 ".adsbygoogle-noablate",
                 "[id*='ad']",
-                "[class*='ad']",
                 "[class*='ads']",
                 "[class*='banner']",
                 "iframe",
