@@ -5,13 +5,14 @@ export class HeaderComponents extends BasePage {
     private readonly logoImg = this.page.locator(".logo");
     private readonly searchField = this.page.locator("#search");
     private readonly cartBtn = this.page.locator(".showcart");
-    private readonly cartCounter = this.page.locator(".showcart .counter.qty");
+    private readonly cartCounter = this.page.locator(".showcart .counter.qty .counter-number");
 
-    get cartCounterIcon() {
+    get cartCounterIconLocator() {
         return this.cartCounter;
     }
 
     async expectCartCounterIncreased(number: string) {
+        await expect(this.cartCounter).toBeVisible();
         await expect(this.cartCounter).toHaveText(number);
     }
 

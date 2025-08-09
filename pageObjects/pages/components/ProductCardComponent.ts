@@ -85,15 +85,15 @@ export class ProductCardComponent extends BasePage {
         {
             for (const { size, color } of productVariants) {
                 await this.addProductToCartByTitle(productTitle, size, color);
-                await this.expectSuccessMsgAfterAddingTheProductToCart();
+                await this.expectSuccessMsgAfterAddingTheProductToCart(productTitle);
             }
         }
     }
 
-    async expectSuccessMsgAfterAddingTheProductToCart() {
-        await this.page.waitForLoadState("load");
+    async expectSuccessMsgAfterAddingTheProductToCart(productTitle: string) {
+        // await this.page.waitForLoadState("load");
         await expect(this.successMsg).toBeVisible();
-        await expect(this.successMsg).toContainText("You added Radiant Tee to your shopping cart");
+        await expect(this.successMsg).toContainText(`You added ${productTitle} to your shopping cart`);
     }
 
     async expectSuccessMsgAfterAddingTheProductToWishList(productTitle: string) {
