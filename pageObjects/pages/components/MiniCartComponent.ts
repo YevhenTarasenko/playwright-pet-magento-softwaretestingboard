@@ -51,6 +51,15 @@ export class MiniCartComponent extends BasePage {
         await this.updateProductQtyFieldBtn.click();
     }
 
+    async clickProceedToCheckoutBtn() {
+        await this.proceedToCheckoutBtn.click();
+    }
+
+    async clickEditButton() {
+        await this.editButton.click();
+        await this.editButton.click();
+    }
+
     // assert
     async expectProductTitle(title: string) {
         await expect(this.productTitle).toHaveText(title);
